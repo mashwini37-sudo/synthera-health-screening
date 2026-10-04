@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Synthera - Login</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ===============================
+           LOGIN PAGE
+        =============================== */
+
+        .auth-page {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 20px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(16, 185, 129, 0.12),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 75%,
+                    rgba(124, 58, 237, 0.12),
+                    transparent 35%
+                );
+        }
+
+
+        .auth-card {
+
+            width: 100%;
+            max-width: 470px;
+
+            padding: 42px;
+
+            background: rgba(13, 27, 21, 0.95);
+
+            border: 1px solid
+                rgba(52, 211, 153, 0.18);
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.4),
+                0 0 45px rgba(16, 185, 129, 0.05);
+
+            backdrop-filter: blur(12px);
+        }
+
+
+        /* LOGO */
+
+        .auth-logo {
+
+            display: block;
+
+            text-align: center;
+
+            margin-bottom: 28px;
+
+            color: #34d399;
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+            text-decoration: none;
+        }
+
+
+        /* ICON */
+
+        .auth-icon {
+
+            width: 58px;
+            height: 58px;
+
+            margin: 0 auto 18px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 17px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.18),
+                    rgba(124, 58, 237, 0.18)
+                );
+
+            border: 1px solid
+                rgba(52, 211, 153, 0.20);
+
+            font-size: 27px;
+        }
+
+
+        /* TITLE */
+
+        .auth-card h1 {
+
+            margin: 0;
+
+            text-align: center;
+
+            color: #f0fdf4;
+
+            font-size: 34px;
+
+            letter-spacing: -0.7px;
+        }
+
+
+        .auth-subtitle {
+
+            margin: 10px auto 30px;
+
+            max-width: 380px;
+
+            text-align: center;
+
+            color: #8fa39a;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        /* FORM */
+
+        .auth-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 21px;
+        }
+
+
+        .auth-group {
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+        .auth-group label {
+
+            margin-bottom: 8px;
+
+            color: #dff8ea;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+
+        .auth-group input {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 14px 15px;
+
+            border-radius: 11px;
+
+            border: 1px solid
+                rgba(52, 211, 153, 0.18);
+
+            background: #08120f;
+
+            color: #f0fdf4;
+
+            font-size: 15px;
+
+            outline: none;
+
+            transition: 0.25s ease;
+        }
+
+
+        .auth-group input::placeholder {
+
+            color: #65776f;
+        }
+
+
+        .auth-group input:focus {
+
+            border-color: #10b981;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(16, 185, 129, 0.10);
+        }
+
+
+        /* LOGIN BUTTON */
+
+        .auth-button {
+
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #10b981,
+                    #059669
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+
+        .auth-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(16, 185, 129, 0.22);
+        }
+
+
+        .auth-button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* MESSAGE */
+
+        .auth-message {
+
+            display: none;
+
+            margin-top: 18px;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        .auth-message.success {
+
+            display: block;
+
+            color: #bbf7d0;
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.25);
+        }
+
+
+        .auth-message.error {
+
+            display: block;
+
+            color: #fecaca;
+
+            background:
+                rgba(239, 68, 68, 0.10);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+        }
+
+
+        /* SIGN UP LINK */
+
+        .auth-footer {
+
+            margin-top: 25px;
+
+            text-align: center;
+
+            color: #7f9389;
+
+            font-size: 14px;
+        }
+
+
+        .auth-footer a {
+
+            color: #34d399;
+
+            font-weight: 700;
+
+            text-decoration: none;
+        }
+
+
+        .auth-footer a:hover {
+
+            color: #a78bfa;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .auth-page {
+
+                padding: 25px 15px;
+            }
+
+            .auth-card {
+
+                padding: 30px 22px;
+
+                border-radius: 18px;
+            }
+
+            .auth-card h1 {
+
+                font-size: 29px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================
+         LOGIN PAGE
+    ================================== -->
+
+    <main class="auth-page">
+
+        <div class="auth-card">
+
+
+            <!-- LOGO -->
+
+            <a
+                href="login.html"
+                class="auth-logo"
+            >
+                SYNTHERA
+            </a>
+
+
+            <!-- ICON -->
+
+            <div class="auth-icon">
+                🔐
+            </div>
+
+
+            <!-- TITLE -->
+
+            <h1>
+                Welcome Back
+            </h1>
+
+
+            <p class="auth-subtitle">
+                Login to your Synthera account to continue
+                using the platform.
+            </p>
+
+
+            <!-- LOGIN FORM -->
+
+            <form
+                id="loginForm"
+                class="auth-form"
+            >
+
+
+                <div class="auth-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email address"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="auth-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-button"
+                    id="loginButton"
+                >
+                    Login
+                </button>
+
+
+            </form>
+
+
+            <!-- MESSAGE -->
+
+            <div
+                id="loginMessage"
+                class="auth-message"
+            ></div>
+
+
+            <!-- SIGN UP -->
+
+            <div class="auth-footer">
+
+                Don't have an account?
+
+                <a href="signup.html">
+                    Create Account
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <!-- =================================
+         JAVASCRIPT
+    ================================== -->
+
+    <script>
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+
+        loginForm.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                loginButton.disabled = true;
+
+                loginButton.textContent =
+                    "Logging in...";
+
+
+                loginMessage.className =
+                    "auth-message";
+
+                loginMessage.textContent = "";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "http://127.0.0.1:8001/login",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    email: email,
+
+                                    password: password
+
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.detail ||
+                            "Invalid email or password."
+                        );
+
+                    }
+
+
+                    /* SAVE USER */
+
+                    localStorage.setItem(
+                        "synthera_user",
+                        JSON.stringify(data.user)
+                    );
+
+
+                    /* SUCCESS */
+
+                    loginMessage.className =
+                        "auth-message success";
+
+                    loginMessage.textContent =
+                        "Login successful. Redirecting...";
+
+
+                    setTimeout(
+                        function() {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        700
+                    );
+
+
+                } catch (error) {
+
+                    loginMessage.className =
+                        "auth-message error";
+
+                    loginMessage.textContent =
+                        error.message;
+
+
+                    loginButton.disabled = false;
+
+                    loginButton.textContent =
+                        "Login";
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>

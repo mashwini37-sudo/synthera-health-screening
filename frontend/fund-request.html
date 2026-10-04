@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Synthera - Financial Support</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ================================
+           FINANCIAL SUPPORT PAGE
+        ================================= */
+
+        .support-page {
+            min-height: calc(100vh - 90px);
+            padding: 70px 20px 90px;
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(16, 185, 129, 0.10),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 85% 70%,
+                    rgba(124, 58, 237, 0.10),
+                    transparent 35%
+                );
+        }
+
+        .support-container {
+            width: 100%;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .support-intro {
+            text-align: center;
+            margin-bottom: 42px;
+        }
+
+        .support-label {
+            display: inline-block;
+            color: #34d399;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .support-intro h1 {
+            margin: 0;
+            color: #f0fdf4;
+            font-size: clamp(38px, 5vw, 58px);
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+        }
+
+        .support-intro h1 span {
+            color: #10b981;
+        }
+
+        .support-intro p {
+            max-width: 650px;
+            margin: 20px auto 0;
+            color: #a7b8ae;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .support-card {
+            background: rgba(13, 27, 21, 0.92);
+            border: 1px solid rgba(52, 211, 153, 0.18);
+            border-radius: 24px;
+            padding: 42px;
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.35),
+                0 0 50px rgba(16, 185, 129, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .support-card-header {
+            margin-bottom: 32px;
+        }
+
+        .support-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: linear-gradient(
+                135deg,
+                rgba(16, 185, 129, 0.18),
+                rgba(124, 58, 237, 0.18)
+            );
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            font-size: 25px;
+            margin-bottom: 18px;
+        }
+
+        .support-card-header h2 {
+            margin: 0 0 8px;
+            color: #f0fdf4;
+            font-size: 27px;
+        }
+
+        .support-card-header p {
+            margin: 0;
+            color: #8fa39a;
+            font-size: 15px;
+        }
+
+        /* ================================
+           AI SCREENING RESULT
+        ================================= */
+
+        .ai-result-card {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 16px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.08),
+                    rgba(124, 58, 237, 0.08)
+                );
+            border: 1px solid rgba(52, 211, 153, 0.18);
+        }
+
+        .ai-result-title {
+            color: #34d399;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
+        }
+
+        .ai-result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ai-result-row:last-of-type {
+            border-bottom: none;
+        }
+
+        .ai-result-label {
+            color: #a7b8ae;
+            font-size: 14px;
+        }
+
+        .ai-result-value {
+            color: #f0fdf4;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .ai-disclaimer {
+            margin-top: 14px;
+            color: #71827a;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .ai-no-result {
+            color: #fbbf24;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* FORM */
+
+        .support-form {
+            display: flex;
+            flex-direction: column;
+            gap: 23px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 9px;
+            color: #dff8ea;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 15px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(52, 211, 153, 0.18);
+            background: #08120f;
+            color: #f0fdf4;
+            font-size: 15px;
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #65776f;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.10);
+        }
+
+        .form-group textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+        /* AMOUNT */
+
+        .amount-wrapper {
+            position: relative;
+        }
+
+        .amount-symbol {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #34d399;
+            font-weight: 700;
+            pointer-events: none;
+        }
+
+        .amount-wrapper input {
+            padding-left: 38px;
+        }
+
+        /* BUTTON */
+
+        .submit-support-btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 22px;
+            margin-top: 5px;
+            background: linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            );
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.25s ease;
+        }
+
+        .submit-support-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.22);
+        }
+
+        .submit-support-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* MESSAGE */
+
+        .form-message {
+            display: none;
+            margin-top: 22px;
+            padding: 15px 18px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-message.success {
+            display: block;
+            color: #bbf7d0;
+            background: rgba(34, 197, 94, 0.10);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .form-message.error {
+            display: block;
+            color: #fecaca;
+            background: rgba(239, 68, 68, 0.10);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        .support-note {
+            margin-top: 22px;
+            text-align: center;
+            color: #65776f;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+
+            .support-page {
+                padding: 45px 15px 60px;
+            }
+
+            .support-card {
+                padding: 25px 20px;
+                border-radius: 18px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 23px;
+            }
+
+            .support-intro h1 {
+                font-size: 38px;
+            }
+
+            .support-intro p {
+                font-size: 15px;
+            }
+
+            .ai-result-row {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="nav-left">
+
+                <a href="index.html" class="logo">
+                    SYNTHERA
+                </a>
+
+                <span class="welcome-text" id="welcomeUser">
+                    Hello 👋
+                </span>
+
+            </div>
+
+            <div class="nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#screening">
+                    Screening
+                </a>
+
+                <a href="fund-request.html" class="active">
+                    Fund Support
+                </a>
+
+                <a href="#" id="logoutBtn">
+                    Logout
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN PAGE -->
+
+    <main class="support-page">
+
+        <div class="support-container">
+
+            <!-- INTRO -->
+
+            <div class="support-intro">
+
+                <span class="support-label">
+                    FINANCIAL SUPPORT
+                </span>
+
+                <h1>
+                    Request <span>Financial Support</span>
+                </h1>
+
+                <p>
+                    Apply for financial support to help manage
+                    your healthcare expenses through the Synthera platform.
+                </p>
+
+            </div>
+
+
+            <!-- FORM CARD -->
+
+            <div class="support-card">
+
+                <div class="support-card-header">
+
+                    <div class="support-icon">
+                        💚
+                    </div>
+
+                    <h2>
+                        Financial Support Request
+                    </h2>
+
+                    <p>
+                        Please provide the details below.
+                    </p>
+
+                </div>
+
+
+                <!-- ================================
+                     AI SCREENING RESULT
+                ================================= -->
+
+                <div class="ai-result-card">
+
+                    <div class="ai-result-title">
+                        AI SCREENING INFORMATION
+                    </div>
+
+                    <div id="aiResultContent">
+
+                        <div class="ai-no-result">
+                            No AI screening result found.
+                            Please complete the health screening first.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- FORM -->
+
+                <form id="fundForm" class="support-form">
+
+                    <!-- NAME + EMAIL -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="name">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Enter your full name"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email address"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONDITION + AMOUNT -->
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="condition">
+                                Health Condition
+                            </label>
+
+                            <input
+                                type="text"
+                                id="condition"
+                                name="condition"
+                                placeholder="Example: Anemia"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="amount">
+                                Requested Amount
+                            </label>
+
+                            <div class="amount-wrapper">
+
+                                <span class="amount-symbol">
+                                    ₹
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="amount"
+                                    name="amount"
+                                    placeholder="Enter amount"
+                                    min="1"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- REASON -->
+
+                    <div class="form-group">
+
+                        <label for="reason">
+                            Reason for Support
+                        </label>
+
+                        <textarea
+                            id="reason"
+                            name="reason"
+                            placeholder="Briefly explain why you need financial support..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="submit-support-btn"
+                        id="submitBtn"
+                    >
+                        Submit Request
+                    </button>
+
+                </form>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="formMessage"
+                    class="form-message"
+                ></div>
+
+
+                <div class="support-note">
+
+                    Your request will be reviewed by the
+                    Synthera administration team.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* --------------------------------
+           LOGIN CHECK
+        -------------------------------- */
+
+        const storedUser =
+            localStorage.getItem("synthera_user");
+
+
+        if (!storedUser) {
+
+            window.location.href = "login.html";
+
+        }
+
+
+        let currentUser = null;
+
+
+        try {
+
+            currentUser = JSON.parse(storedUser);
+
+        } catch (error) {
+
+            localStorage.removeItem("synthera_user");
+
+            window.location.href = "login.html";
+
+        }
+
+
+        /* --------------------------------
+           DISPLAY USER NAME
+        -------------------------------- */
+
+        if (currentUser) {
+
+            const welcomeUser =
+                document.getElementById("welcomeUser");
+
+            if (currentUser.name) {
+
+                welcomeUser.textContent =
+                    `Hello, ${currentUser.name} 👋`;
+
+            }
+
+        }
+
+
+        /* --------------------------------
+           AUTO-FILL USER DETAILS
+        -------------------------------- */
+
+        if (currentUser) {
+
+            const nameInput =
+                document.getElementById("name");
+
+            const emailInput =
+                document.getElementById("email");
+
+
+            if (currentUser.name) {
+
+                nameInput.value =
+                    currentUser.name;
+
+            }
+
+
+            if (currentUser.email) {
+
+                emailInput.value =
+                    currentUser.email;
+
+            }
+
+        }
+
+
+        /* --------------------------------
+           AI SCREENING RESULT
+        -------------------------------- */
+
+        const aiResult =
+            localStorage.getItem(
+                "synthera_screening_result"
+            );
+
+        const aiConfidence =
+            localStorage.getItem(
+                "synthera_screening_confidence"
+            );
+
+
+        const aiResultContent =
+            document.getElementById(
+                "aiResultContent"
+            );
+
+
+        if (aiResult && aiConfidence) {
+
+            aiResultContent.innerHTML = `
+
+                <div class="ai-result-row">
+
+                    <span class="ai-result-label">
+                        AI Prediction
+                    </span>
+
+                    <span class="ai-result-value">
+                        ${aiResult}
+                    </span>
+
+                </div>
+
+                <div class="ai-result-row">
+
+                    <span class="ai-result-label">
+                        Model Confidence
+                    </span>
+
+                    <span class="ai-result-value">
+                        ${aiConfidence}%
+                    </span>
+
+                </div>
+
+                <div class="ai-disclaimer">
+                    This is a preliminary AI screening result
+                    and not a medical diagnosis.
+                </div>
+
+            `;
+
+        }
+
+
+        /* --------------------------------
+           LOGOUT
+        -------------------------------- */
+
+        document
+            .getElementById("logoutBtn")
+            .addEventListener("click", function(event) {
+
+                event.preventDefault();
+
+                localStorage.removeItem(
+                    "synthera_user"
+                );
+
+                window.location.href =
+                    "login.html";
+
+            });
+
+
+        /* --------------------------------
+           FUND REQUEST
+        -------------------------------- */
+
+        document
+            .getElementById("fundForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+
+                const submitBtn =
+                    document.getElementById("submitBtn");
+
+                const formMessage =
+                    document.getElementById("formMessage");
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const condition =
+                    document
+                        .getElementById("condition")
+                        .value
+                        .trim();
+
+
+                const amount =
+                    document
+                        .getElementById("amount")
+                        .value;
+
+
+                const reason =
+                    document
+                        .getElementById("reason")
+                        .value
+                        .trim();
+
+
+                /* AI DATA */
+
+                const screeningResult =
+                    localStorage.getItem(
+                        "synthera_screening_result"
+                    ) || "";
+
+
+                const screeningConfidence =
+                    localStorage.getItem(
+                        "synthera_screening_confidence"
+                    ) || "";
+
+
+                /* Clear old message */
+
+                formMessage.className =
+                    "form-message";
+
+                formMessage.textContent = "";
+
+
+                /* Loading */
+
+                submitBtn.disabled = true;
+
+                submitBtn.textContent =
+                    "Submitting...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            "http://127.0.0.1:8001/fund-request",
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    name: name,
+
+                                    email: email,
+
+                                    condition: condition,
+
+                                    amount: Number(amount),
+
+                                    reason: reason,
+
+                                    ai_result:
+                                        screeningResult,
+
+                                    ai_confidence:
+                                        screeningConfidence
+
+                                })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.detail ||
+                            "Unable to submit request."
+                        );
+
+                    }
+
+
+                    /* SUCCESS */
+
+                    formMessage.className =
+                        "form-message success";
+
+                    formMessage.innerHTML = `
+                        <strong>
+                            Request Submitted Successfully ✓
+                        </strong>
+                        <br>
+                        Your financial support request has been
+                        received and will be reviewed by the
+                        Synthera administration team.
+                    `;
+
+
+                    /* Reset condition, amount and reason */
+
+                    document
+                        .getElementById("condition")
+                        .value = "";
+
+                    document
+                        .getElementById("amount")
+                        .value = "";
+
+                    document
+                        .getElementById("reason")
+                        .value = "";
+
+
+                } catch (error) {
+
+                    /* ERROR */
+
+                    formMessage.className =
+                        "form-message error";
+
+                    formMessage.innerHTML = `
+                        <strong>
+                            Request Failed
+                        </strong>
+                        <br>
+                        ${error.message}
+                    `;
+
+                }
+
+
+                submitBtn.disabled = false;
+
+                submitBtn.textContent =
+                    "Submit Request";
+
+            });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+.env
+backend/.env
+__pycache__/
+*.pyc
+backend/users.json
+dataset_final/
+backend/fund_requests.json
+ml/anemia_model.keras

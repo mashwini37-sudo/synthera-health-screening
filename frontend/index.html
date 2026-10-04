@@ -1,0 +1,1660 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Synthera - AI Health Screening</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #06100d;
+            color: #f0fdf4;
+            min-height: 100vh;
+        }
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            width: 100%;
+            background: rgba(5, 15, 12, 0.96);
+            border-bottom: 1px solid rgba(52, 211, 153, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            min-height: 72px;
+            padding: 0 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #34d399;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .welcome-text {
+            color: #a7b8ae;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #b8c8c0;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #34d399;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 560px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 80px 20px;
+
+            background:
+                radial-gradient(
+                    circle at 20% 30%,
+                    rgba(16, 185, 129, 0.14),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 60%,
+                    rgba(124, 58, 237, 0.14),
+                    transparent 35%
+                );
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 20px;
+
+            color: #34d399;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 7vw, 72px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: #10b981;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: auto;
+
+            color: #a7b8ae;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 32px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-block;
+
+            padding: 14px 25px;
+            border-radius: 10px;
+
+            font-size: 15px;
+            font-weight: 700;
+
+            text-decoration: none;
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(
+                135deg,
+                #10b981,
+                #059669
+            );
+
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                0 12px 30px rgba(16, 185, 129, 0.25);
+        }
+
+        .btn-secondary {
+            border: 1px solid rgba(52, 211, 153, 0.35);
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(16, 185, 129, 0.12);
+        }
+
+
+        /* =========================
+           SCREENING
+        ========================= */
+
+        .screening-section {
+            padding: 80px 20px 100px;
+
+            background:
+                radial-gradient(
+                    circle at 15% 30%,
+                    rgba(16, 185, 129, 0.08),
+                    transparent 35%
+                );
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading > span {
+            display: block;
+
+            color: #34d399;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading p {
+            color: #9eb0a7;
+            font-size: 16px;
+        }
+
+
+        /* =========================
+           SCREENING BOX
+        ========================= */
+
+        .screening-box {
+            width: 100%;
+            max-width: 850px;
+
+            margin: auto;
+            padding: 30px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(13, 35, 27, 0.96),
+                    rgba(14, 19, 35, 0.96)
+                );
+
+            border: 1px solid rgba(52, 211, 153, 0.20);
+
+            box-shadow:
+                0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* =========================
+           UPLOAD
+        ========================= */
+
+        .upload-area {
+            min-height: 330px;
+
+            border: 2px dashed rgba(16, 185, 129, 0.45);
+            border-radius: 20px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            background: rgba(16, 185, 129, 0.035);
+        }
+
+        .upload-icon {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(16, 185, 129, 0.10);
+            color: #34d399;
+
+            font-size: 42px;
+
+            margin-bottom: 18px;
+        }
+
+        .upload-area h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .upload-area p {
+            color: #a7b8ae;
+            margin-bottom: 18px;
+        }
+
+        .file-name {
+            color: #34d399 !important;
+            font-size: 14px;
+            margin-top: 15px;
+            margin-bottom: 0 !important;
+
+            max-width: 90%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
+        /* =========================
+           PREVIEW
+        ========================= */
+
+        .preview-area {
+            display: none;
+
+            margin-top: 25px;
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background: #071510;
+            border: 1px solid rgba(52, 211, 153, 0.18);
+
+            text-align: center;
+        }
+
+        .preview-area.show {
+            display: block;
+        }
+
+        #previewImage {
+            display: block;
+
+            width: auto;
+            max-width: 100%;
+
+            /* IMPORTANT */
+            max-height: 320px;
+
+            margin: auto;
+
+            object-fit: contain;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+
+        /* =========================
+           ANALYZE BUTTON
+        ========================= */
+
+        .screening-button {
+            width: 100%;
+
+            margin-top: 25px;
+
+            padding: 17px;
+
+            font-size: 17px;
+        }
+
+        .screening-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+
+        /* =========================
+           RESULT
+        ========================= */
+
+        .result-box {
+            display: none;
+
+            margin-top: 25px;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.10),
+                    rgba(124, 58, 237, 0.10)
+                );
+
+            border: 1px solid rgba(52, 211, 153, 0.25);
+
+            text-align: center;
+        }
+
+        .result-box.show {
+            display: block;
+        }
+
+        .result-content h3 {
+            color: #34d399;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .result-status {
+            font-size: 32px;
+            font-weight: 800;
+
+            color: #f0fdf4;
+
+            margin-bottom: 12px;
+        }
+
+        .result-confidence {
+            color: #a7b8ae;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .result-confidence strong {
+            color: #34d399;
+        }
+
+        .result-message {
+            color: #b6c5bd;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+
+
+        /* =========================
+           ERROR
+        ========================= */
+
+        .error-message {
+            color: #fecaca;
+
+            background: rgba(239, 68, 68, 0.10);
+
+            border: 1px solid rgba(239, 68, 68, 0.25);
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FEATURES
+        ========================= */
+
+        .features-section {
+            padding: 80px 20px;
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+        }
+
+        .feature-card {
+            padding: 35px;
+
+            min-height: 280px;
+
+            border-radius: 22px;
+
+            background: rgba(13, 27, 21, 0.90);
+
+            border: 1px solid rgba(52, 211, 153, 0.18);
+
+            transition: 0.25s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(52, 211, 153, 0.35);
+        }
+
+        .feature-icon {
+            width: 65px;
+            height: 65px;
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(16, 185, 129, 0.15),
+                    rgba(124, 58, 237, 0.15)
+                );
+
+            border: 1px solid rgba(52, 211, 153, 0.20);
+
+            color: #f0fdf4;
+
+            font-size: 28px;
+
+            margin-bottom: 30px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card p {
+            color: #a7b8ae;
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           WORKFLOW
+        ========================= */
+
+        .workflow-section {
+            padding: 80px 20px;
+        }
+
+        .workflow {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .workflow-step {
+            text-align: center;
+
+            padding: 25px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+
+            margin: 0 auto 18px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: rgba(16, 185, 129, 0.10);
+
+            border: 1px solid rgba(52, 211, 153, 0.25);
+
+            color: #34d399;
+
+            font-weight: 800;
+        }
+
+        .workflow-step h3 {
+            margin-bottom: 10px;
+        }
+
+        .workflow-step p {
+            color: #8fa39a;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            padding: 50px 20px;
+
+            border-top:
+                1px solid rgba(52, 211, 153, 0.12);
+
+            text-align: center;
+
+            background: #040b09;
+        }
+
+        .footer h3 {
+            color: #34d399;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .footer p {
+            color: #87978f;
+            margin-bottom: 12px;
+        }
+
+        .footer span {
+            color: #596861;
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+                padding: 18px;
+            }
+
+            .nav-left {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .screening-box {
+                padding: 18px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading h2 {
+                font-size: 32px;
+            }
+
+            .upload-area {
+                min-height: 280px;
+            }
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================= -->
+
+    <nav class="navbar">
+
+        <div class="nav-container">
+
+            <div class="nav-left">
+
+                <a
+                    href="index.html"
+                    class="logo"
+                >
+                    SYNTHERA
+                </a>
+
+                <span
+                    class="welcome-text"
+                    id="welcomeUser"
+                >
+                    Hello 👋
+                </span>
+
+            </div>
+
+
+            <div class="nav-links">
+
+                <a
+                    href="index.html"
+                    class="active"
+                >
+                    Home
+                </a>
+
+                <a href="#screening">
+                    Screening
+                </a>
+
+                <a href="fund-request.html">
+                    Fund Request
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+                AI-POWERED HEALTH SCREENING
+            </span>
+
+            <h1>
+                Intelligent Health
+                <span>Screening & Support</span>
+            </h1>
+
+            <p>
+                Synthera uses AI-based image screening
+                to identify possible anemia indicators
+                and connects eligible users with a
+                structured healthcare fund request system.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#screening"
+                    class="btn-primary"
+                >
+                    Start Screening
+                </a>
+
+                <a
+                    href="fund-request.html"
+                    class="btn-secondary"
+                >
+                    Request Fund
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SCREENING
+    ========================= -->
+
+    <section
+        class="screening-section"
+        id="screening"
+    >
+
+        <div class="section-heading">
+
+            <span>
+                AI SCREENING
+            </span>
+
+            <h2>
+                Check Your Health
+            </h2>
+
+            <p>
+                Upload an eye image for an AI-based
+                anemia screening result.
+            </p>
+
+        </div>
+
+
+        <div class="screening-box">
+
+
+            <!-- UPLOAD -->
+
+            <div
+                class="upload-area"
+                id="uploadArea"
+            >
+
+                <div class="upload-icon">
+                    +
+                </div>
+
+                <h3>
+                    Upload Image
+                </h3>
+
+                <p>
+                    Select a JPG, JPEG or PNG image
+                </p>
+
+                <input
+                    type="file"
+                    id="imageInput"
+                    accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                    hidden
+                >
+
+                <button
+                    type="button"
+                    class="btn-primary"
+                    id="chooseImageBtn"
+                >
+                    Choose Image
+                </button>
+
+                <p
+                    id="fileName"
+                    class="file-name"
+                ></p>
+
+            </div>
+
+
+            <!-- PREVIEW -->
+
+            <div
+                class="preview-area"
+                id="previewArea"
+            >
+
+                <img
+                    id="previewImage"
+                    alt="Selected image preview"
+                >
+
+            </div>
+
+
+            <!-- ANALYZE -->
+
+            <button
+                type="button"
+                class="btn-primary screening-button"
+                id="screenButton"
+            >
+                Analyze Image
+            </button>
+
+
+            <!-- RESULT -->
+
+            <div
+                id="resultBox"
+                class="result-box"
+            ></div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FEATURES
+    ========================= -->
+
+    <section class="features-section">
+
+        <div class="section-heading">
+
+            <span>
+                WHY SYNTHERA
+            </span>
+
+            <h2>
+                One Platform, Multiple Solutions
+            </h2>
+
+        </div>
+
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    AI
+                </div>
+
+                <h3>
+                    AI Screening
+                </h3>
+
+                <p>
+                    Image-based AI screening provides
+                    a quick preliminary anemia indication.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ₹
+                </div>
+
+                <h3>
+                    Fund Support
+                </h3>
+
+                <p>
+                    Submit healthcare fund requests
+                    through a structured digital process.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ✓
+                </div>
+
+                <h3>
+                    Admin Allocation
+                </h3>
+
+                <p>
+                    Administrators can review requests
+                    and allocate approved financial support.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         WORKFLOW
+    ========================= -->
+
+    <section class="workflow-section">
+
+        <div class="section-heading">
+
+            <span>
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                Simple 4-Step Process
+            </h2>
+
+        </div>
+
+
+        <div class="workflow">
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>
+                    Upload
+                </h3>
+
+                <p>
+                    Upload a suitable health image.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>
+                    AI Screening
+                </h3>
+
+                <p>
+                    Our trained model analyzes the image.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>
+                    Request Fund
+                </h3>
+
+                <p>
+                    Submit a healthcare support request.
+                </p>
+
+            </div>
+
+
+            <div class="workflow-step">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <h3>
+                    Allocation
+                </h3>
+
+                <p>
+                    Admin reviews and processes the request.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <h3>
+            SYNTHERA
+        </h3>
+
+        <p>
+            AI-Based Multi-Deficiency Health Screening
+            & Fund Allocation System
+        </p>
+
+        <span>
+            © 2026 Synthera. Academic Project.
+        </span>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        /* =====================================
+           USER LOGIN
+        ===================================== */
+
+        const userData =
+            localStorage.getItem("synthera_user");
+
+
+        if (!userData) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        let currentUser = null;
+
+
+        try {
+
+            currentUser =
+                JSON.parse(userData);
+
+        } catch (error) {
+
+            localStorage.removeItem(
+                "synthera_user"
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        /* =====================================
+           WELCOME USER
+        ===================================== */
+
+        if (currentUser) {
+
+            const welcomeUser =
+                document.getElementById(
+                    "welcomeUser"
+                );
+
+
+            if (currentUser.name) {
+
+                welcomeUser.textContent =
+                    `Hello, ${currentUser.name} 👋`;
+
+            }
+
+        }
+
+
+        /* =====================================
+           ELEMENTS
+        ===================================== */
+
+        const imageInput =
+            document.getElementById(
+                "imageInput"
+            );
+
+
+        const chooseImageBtn =
+            document.getElementById(
+                "chooseImageBtn"
+            );
+
+
+        const previewArea =
+            document.getElementById(
+                "previewArea"
+            );
+
+
+        const previewImage =
+            document.getElementById(
+                "previewImage"
+            );
+
+
+        const fileName =
+            document.getElementById(
+                "fileName"
+            );
+
+
+        const screenButton =
+            document.getElementById(
+                "screenButton"
+            );
+
+
+        const resultBox =
+            document.getElementById(
+                "resultBox"
+            );
+
+
+        /* =====================================
+           CHOOSE IMAGE
+        ===================================== */
+
+        chooseImageBtn.addEventListener(
+            "click",
+            function () {
+
+                imageInput.click();
+
+            }
+        );
+
+
+        /* =====================================
+           IMAGE SELECTED
+        ===================================== */
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files[0];
+
+
+                if (!file) {
+                    return;
+                }
+
+
+                /* Check image */
+
+                if (!file.type.startsWith("image/")) {
+
+                    showError(
+                        "Please select a valid JPG, JPEG or PNG image."
+                    );
+
+                    return;
+
+                }
+
+
+                /* File name */
+
+                fileName.textContent =
+                    file.name;
+
+
+                /* Preview */
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        previewImage.src =
+                            event.target.result;
+
+
+                        previewArea.classList.add(
+                            "show"
+                        );
+
+
+                        /* Clear old result */
+
+                        resultBox.classList.remove(
+                            "show"
+                        );
+
+                        resultBox.innerHTML = "";
+
+                    };
+
+
+                reader.readAsDataURL(file);
+
+
+                /* Clear previous AI data */
+
+                localStorage.removeItem(
+                    "synthera_screening_result"
+                );
+
+                localStorage.removeItem(
+                    "synthera_screening_confidence"
+                );
+
+            }
+        );
+
+
+        /* =====================================
+           ANALYZE IMAGE
+        ===================================== */
+
+        screenButton.addEventListener(
+            "click",
+            async function () {
+
+
+                const file =
+                    imageInput.files[0];
+
+
+                /* No image */
+
+                if (!file) {
+
+                    showError(
+                        "Please select an image first."
+                    );
+
+                    return;
+
+                }
+
+
+                /* Loading */
+
+                screenButton.disabled =
+                    true;
+
+                screenButton.textContent =
+                    "Analyzing...";
+
+
+                resultBox.classList.remove(
+                    "show"
+                );
+
+
+                const formData =
+                    new FormData();
+
+
+                formData.append(
+                    "file",
+                    file
+                );
+
+
+                try {
+
+
+                    /* =========================
+                       CALL BACKEND
+                    ========================= */
+
+                    const response =
+                        await fetch(
+                            "http://127.0.0.1:8001/predict",
+                            {
+                                method: "POST",
+                                body: formData
+                            }
+                        );
+
+
+                    /* Response */
+
+                    const data =
+                        await response.json();
+
+
+                    console.log(
+                        "AI RESPONSE:",
+                        data
+                    );
+
+
+                    /* Backend error */
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.detail ||
+                            "AI screening failed."
+                        );
+
+                    }
+
+
+                    /* =========================
+                       GET RESULT
+                    ========================= */
+
+                    const prediction =
+                        data.prediction ??
+                        data.result ??
+                        data.label ??
+                        "Unknown";
+
+
+                    let confidence =
+                        data.confidence ??
+                        data.probability ??
+                        "";
+
+
+                    const message =
+                        data.message ??
+                        "AI screening completed successfully.";
+
+
+                    /* =========================
+                       CONFIDENCE FORMAT
+                    ========================= */
+
+                    if (
+                        confidence !== "" &&
+                        confidence !== null &&
+                        confidence !== undefined
+                    ) {
+
+                        const confidenceNumber =
+                            Number(confidence);
+
+
+                        if (
+                            !Number.isNaN(
+                                confidenceNumber
+                            )
+                        ) {
+
+                            if (
+                                confidenceNumber <= 1
+                            ) {
+
+                                confidence =
+                                    (
+                                        confidenceNumber *
+                                        100
+                                    ).toFixed(2);
+
+                            } else {
+
+                                confidence =
+                                    confidenceNumber.toFixed(2);
+
+                            }
+
+                        }
+
+                    }
+
+
+                    /* =========================
+                       SAVE AI RESULT
+                    ========================= */
+
+                    localStorage.setItem(
+                        "synthera_screening_result",
+                        prediction
+                    );
+
+
+                    localStorage.setItem(
+                        "synthera_screening_confidence",
+                        confidence
+                    );
+
+
+                    /* =========================
+                       DISPLAY RESULT
+                    ========================= */
+
+                    resultBox.innerHTML = `
+
+                        <div class="result-content">
+
+                            <h3>
+                                AI SCREENING RESULT
+                            </h3>
+
+                            <div class="result-status">
+                                ${prediction}
+                            </div>
+
+                            ${
+                                confidence !== ""
+                                ?
+                                `
+                                <div class="result-confidence">
+
+                                    Model Confidence:
+
+                                    <strong>
+                                        ${confidence}%
+                                    </strong>
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
+                            <p class="result-message">
+                                ${message}
+                            </p>
+
+
+                            <div class="result-actions">
+
+                                <a
+                                    href="fund-request.html"
+                                    class="btn-primary"
+                                >
+                                    Continue to Fund Request
+                                </a>
+
+                                <button
+                                    type="button"
+                                    class="btn-secondary"
+                                    onclick="window.location.href='#screening'"
+                                >
+                                    Analyze Another Image
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    resultBox.classList.add(
+                        "show"
+                    );
+
+
+                    /* =================================
+                       IMPORTANT:
+                       SCROLL TO RESULT
+                    ================================= */
+
+                    setTimeout(
+                        function () {
+
+                            resultBox.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+
+                        },
+                        200
+                    );
+
+
+                } catch (error) {
+
+
+                    console.error(
+                        "SCREENING ERROR:",
+                        error
+                    );
+
+
+                    showError(
+                        error.message ||
+                        "Unable to connect to AI backend."
+                    );
+
+                }
+
+
+                /* Reset button */
+
+                screenButton.disabled =
+                    false;
+
+                screenButton.textContent =
+                    "Analyze Image";
+
+            }
+        );
+
+
+        /* =====================================
+           ERROR FUNCTION
+        ===================================== */
+
+        function showError(message) {
+
+            resultBox.innerHTML = `
+
+                <div class="error-message">
+
+                    <strong>
+                        Screening Error
+                    </strong>
+
+                    <br><br>
+
+                    ${message}
+
+                </div>
+
+            `;
+
+
+            resultBox.classList.add(
+                "show"
+            );
+
+
+            resultBox.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Synthera | Admin Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #071c16, #241342);
+            color: white;
+        }
+
+        .login-card {
+            width: 420px;
+            max-width: 90%;
+            padding: 42px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(15px);
+        }
+
+        .logo {
+            text-align: center;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #70f0c1;
+            margin-bottom: 12px;
+        }
+
+        .admin-label {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #c4a7ff;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            text-align: center;
+            color: #c9c5d4;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            font-size: 14px;
+        }
+
+        input::placeholder {
+            color: #aaa5b5;
+        }
+
+        input:focus {
+            border-color: #70f0c1;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #55d9ac, #8b6ee8);
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
+        }
+
+        .message {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        .success {
+            color: #70f0c1;
+        }
+
+        .error {
+            color: #ff8d9b;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #bbb4ca;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+
+        <div class="logo">✦ SYNTHERA</div>
+
+        <div class="admin-label">
+            ADMIN PORTAL
+        </div>
+
+        <h1>Admin Login</h1>
+
+        <p class="description">
+            Sign in to manage healthcare support requests.
+        </p>
+
+        <form id="adminLoginForm">
+
+            <div class="form-group">
+                <label for="email">
+                    Admin Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter admin email"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required
+                >
+            </div>
+
+            <button type="submit">
+                Login to Admin Portal
+            </button>
+
+        </form>
+
+        <div id="message" class="message"></div>
+
+        <a href="index.html" class="back-link">
+            ← Back to Synthera
+        </a>
+
+    </div>
+
+    <script>
+
+        const form = document.getElementById("adminLoginForm");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async function(event) {
+
+            event.preventDefault();
+
+            message.className = "message";
+            message.textContent = "Checking admin credentials...";
+
+            const email = document
+                .getElementById("email")
+                .value
+                .trim();
+
+            const password = document
+                .getElementById("password")
+                .value;
+
+            if (!email || !password) {
+
+                message.textContent =
+                    "Please enter email and password.";
+
+                message.classList.add("error");
+
+                return;
+            }
+
+            try {
+
+                const response = await fetch(
+                    "http://127.0.0.1:8001/admin-login",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            email: email,
+                            password: password
+                        })
+                    }
+                );
+
+                const data = await response.json();
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        data.detail || "Invalid admin credentials."
+                    );
+                }
+
+                localStorage.setItem(
+                    "synthera_admin",
+                    JSON.stringify(data.admin)
+                );
+
+                message.textContent =
+                    "Admin login successful. Opening dashboard...";
+
+                message.classList.add("success");
+
+                setTimeout(function() {
+
+                    window.location.href = "admin.html";
+
+                }, 800);
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    error.message ||
+                    "Unable to connect to the backend.";
+
+                message.classList.add("error");
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
